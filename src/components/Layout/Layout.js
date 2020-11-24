@@ -13,10 +13,20 @@ class Layout extends Component {
         this.setState({showSideDrawer: false})
     }
 
+    // clean way of setting the state that depends on the old state
+    sideDrawerToggleHandler = () => {
+        this.setState((prevState) => {
+            return {showSideDrawer: !prevState.showSideDrawer}
+        });
+    }
+
     render () {
         return <Aux>
-            <Toolbar />
-            <SideDrawer open={this.state.showSideDrawer} closed={this.sideDrawerClosedHandler}/>
+            <Toolbar drawerToggleClicked={this.sideDrawerToggleHandler}/>
+            <SideDrawer 
+                open={this.state.showSideDrawer} 
+                closed={this.sideDrawerClosedHandler}
+            />
             <main className={classes.Content}>
                 {this.props.children}
             </main>
