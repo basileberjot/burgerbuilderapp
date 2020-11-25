@@ -94,7 +94,8 @@ class BurgerBuilder extends Component {
 
     purchaseContinueHandler = () => {
         // alert('Your order has been stored !')
-        this.setState({loading: true});
+
+/*         this.setState({loading: true});
         // management of price would be on the backend normally..
         const order = {
             ingredients: this.state.ingredients,
@@ -116,6 +117,15 @@ class BurgerBuilder extends Component {
             })
                 .catch(error => {
                     this.setState({loading: false, purchasing: false});
+            }); */
+            const queryParams = [];
+            for (let i in this.state.ingredients) {
+                queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
+            }
+            const queryString = queryParams.join('&');
+            this.props.history.push({
+                pathname: '/checkout',
+                search: '?' + queryString
             });
     }
 
