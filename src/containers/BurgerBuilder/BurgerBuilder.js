@@ -95,38 +95,16 @@ class BurgerBuilder extends Component {
     purchaseContinueHandler = () => {
         // alert('Your order has been stored !')
 
-/*         this.setState({loading: true});
-        // management of price would be on the backend normally..
-        const order = {
-            ingredients: this.state.ingredients,
-            price: this.state.totalPrice,
-            customer: {
-                name: 'Baz',
-                address: {
-                    street: 'Rue test',
-                    zipCode: '47000',
-                    country: 'France'
-                },
-                email: 'test@test.fr',
-            },
-            deliveryMethod: 'express'
+        const queryParams = [];
+        for (let i in this.state.ingredients) {
+            queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
         }
-        axios.post('/orders.json', order)
-                .then(response => {
-                    this.setState({loading: false, purchasing: false});
-            })
-                .catch(error => {
-                    this.setState({loading: false, purchasing: false});
-            }); */
-            const queryParams = [];
-            for (let i in this.state.ingredients) {
-                queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
-            }
-            const queryString = queryParams.join('&');
-            this.props.history.push({
-                pathname: '/checkout',
-                search: '?' + queryString
-            });
+        queryParams.push('price=' + this.state.totalPrice);
+        const queryString = queryParams.join('&');
+        this.props.history.push({
+            pathname: '/checkout',
+            search: '?' + queryString
+        });
     }
 
     render() {
